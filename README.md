@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://wakatime.com">
+    <img src="assets/wakatime-logo.svg" alt="WakaTime Logo" width="120" />
+  </a>
+</p>
+
 # WakaTime for Pi & Oh-My-Pi
 
 [![npm version](https://img.shields.io/npm/v/waka-pi.svg)](https://www.npmjs.com/package/waka-pi)
