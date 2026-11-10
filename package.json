@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "waka-pi": "./bin/waka-pi.js"
+    "waka-pi": "bin/waka-pi.js"
   },
   "keywords": [
     "pi",
