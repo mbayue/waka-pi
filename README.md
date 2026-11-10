@@ -1,5 +1,8 @@
 # WakaTime for Pi & Oh-My-Pi
 
+[![CI](https://github.com/mbayue/waka-pi/actions/workflows/ci.yml/badge.svg)](https://github.com/mbayue/waka-pi/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 Track AI-assisted coding activity, file modifications, sessions, and token metrics from [Pi](https://pi.dev) and [Oh-My-Pi](https://omp.sh) with [WakaTime](https://wakatime.com/).
 
 ---
