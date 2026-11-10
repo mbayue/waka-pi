@@ -1,0 +1,70 @@
+{
+  "name": "waka-pi",
+  "version": "1.0.0",
+  "description": "WakaTime plugin for Pi and Oh-My-Pi coding agents",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "waka-pi": "./bin/waka-pi.js"
+  },
+  "keywords": [
+    "pi",
+    "oh-my-pi",
+    "omp",
+    "wakatime",
+    "coding-agent",
+    "time-tracking",
+    "productivity",
+    "pi-package"
+  ],
+  "author": "Bayu Erich <rich.bayue@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbayue/waka-pi.git"
+  },
+  "homepage": "https://github.com/mbayue/waka-pi#readme",
+  "bugs": {
+    "url": "https://github.com/mbayue/waka-pi/issues"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "omp": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc",
+    "watch": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/**/*.test.js || tsx test/**/*.test.ts"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@oh-my-pi/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@oh-my-pi/pi-coding-agent": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
