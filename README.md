@@ -105,22 +105,22 @@ Use the `/wakatime` slash command in your agent TUI:
 - `/wakatime update` (or `/wakatime install`) — Downloads or updates `wakatime-cli`.
 - `/wakatime log` — Views the last 20 lines of `~/.wakatime/waka-pi.log`.
 
-### From Terminal (`bin/waka-pi.js`)
+### From Terminal (CLI)
 
-Run diagnostic or maintenance tasks without starting an agent:
+Run diagnostic or maintenance tasks directly from your terminal using `npx`:
 
 ```bash
 # Check status and configuration
-node ./bin/waka-pi.js --status
-# or via npx (when published):
 npx waka-pi --status
 
 # Trigger an immediate sync for a specific workspace
-node ./bin/waka-pi.js --sync /path/to/project
+npx waka-pi --sync /path/to/project
 
 # Download or update wakatime-cli binary
-node ./bin/waka-pi.js --install
+npx waka-pi --install
 ```
+
+*(During local development, you can also run `node ./bin/waka-pi.js --status`)*
 
 ---
 
