@@ -1,5 +1,6 @@
 # WakaTime for Pi & Oh-My-Pi
 
+[![npm version](https://img.shields.io/npm/v/waka-pi.svg)](https://www.npmjs.com/package/waka-pi)
 [![CI](https://github.com/mbayue/waka-pi/actions/workflows/ci.yml/badge.svg)](https://github.com/mbayue/waka-pi/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
