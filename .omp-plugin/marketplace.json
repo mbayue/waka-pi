@@ -1,0 +1,15 @@
+{
+  "name": "waka-pi",
+  "description": "WakaTime telemetry plugin for Pi and Oh-My-Pi coding agents",
+  "owner": {
+    "name": "mbayue"
+  },
+  "plugins": [
+    {
+      "name": "waka-pi",
+      "source": "./",
+      "version": "1.0.2",
+      "description": "Automated WakaTime telemetry, AI session syncing, and file heartbeats for Pi and Oh-My-Pi."
+    }
+  ]
+}
