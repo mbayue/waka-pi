@@ -8,7 +8,7 @@
     {
       "name": "waka-pi",
       "source": "./",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "description": "Automated WakaTime telemetry, AI session syncing, and file heartbeats for Pi and Oh-My-Pi."
     }
   ]

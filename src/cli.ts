@@ -122,6 +122,93 @@ export async function getTodayTime(cliPath: string): Promise<string> {
   }
 }
 
+export interface WakaTodayItem {
+  name: string;
+  percent: number;
+  text: string;
+  total_seconds?: number;
+}
+
+export interface WakaTodayData {
+  range?: { text?: string; date?: string };
+  grand_total?: { text?: string; total_seconds?: number };
+  projects?: WakaTodayItem[];
+  languages?: WakaTodayItem[];
+  categories?: WakaTodayItem[];
+}
+
+export function formatProgressBar(percent: number, width = 10): string {
+  const clamped = Math.min(100, Math.max(0, percent));
+  const filled = Math.min(width, Math.max(0, Math.round((clamped / 100) * width)));
+  return "■".repeat(filled) + "□".repeat(width - filled);
+}
+
+export function formatTodaySummary(data: WakaTodayData): string {
+  const dateStr = data.range?.text ? ` (${data.range.text})` : "";
+  const totalText = data.grand_total?.text || "0 secs";
+  const lines: string[] = [`Today's WakaTime: ${totalText}${dateStr}`];
+
+  const totalSecs = data.grand_total?.total_seconds ?? 0;
+  const hasProjects = Array.isArray(data.projects) && data.projects.length > 0;
+  const hasLanguages = Array.isArray(data.languages) && data.languages.length > 0;
+  const hasCategories = Array.isArray(data.categories) && data.categories.length > 0;
+
+  if (totalSecs === 0 && !hasProjects && !hasLanguages) {
+    lines.push("\nNo activity recorded yet today.");
+    return lines.join("\n");
+  }
+
+  if (hasProjects) {
+    lines.push("\nProjects");
+    for (const p of data.projects!.slice(0, 4)) {
+      const name = p.name.length > 14 ? `${p.name.slice(0, 13)}…` : p.name;
+      const time = (p.text || "0 secs").padStart(12);
+      const pctValue = p.percent > 0 && p.percent < 0.5 ? "<1%" : `${Math.round(p.percent)}%`;
+      const pct = pctValue.padStart(4);
+      lines.push(`  • ${name.padEnd(14)} ${time}  ${formatProgressBar(p.percent)}   ${pct}`);
+    }
+  }
+
+  if (hasLanguages) {
+    lines.push("\nLanguages");
+    for (const l of data.languages!.slice(0, 4)) {
+      const name = l.name.length > 14 ? `${l.name.slice(0, 13)}…` : l.name;
+      const time = (l.text || "0 secs").padStart(12);
+      const pctValue = l.percent > 0 && l.percent < 0.5 ? "<1%" : `${Math.round(l.percent)}%`;
+      const pct = pctValue.padStart(4);
+      lines.push(`  • ${name.padEnd(14)} ${time}  ${formatProgressBar(l.percent)}   ${pct}`);
+    }
+  }
+
+  if (hasCategories) {
+    lines.push("\nCategories");
+    for (const c of data.categories!.slice(0, 3)) {
+      const name = c.name.length > 14 ? `${c.name.slice(0, 13)}…` : c.name;
+      const time = (c.text || "0 secs").padStart(12);
+      const pctValue = c.percent > 0 && c.percent < 0.5 ? "<1%" : `${Math.round(c.percent)}%`;
+      const pct = pctValue.padStart(4);
+      lines.push(`  • ${name.padEnd(14)} ${time}  ${formatProgressBar(c.percent)}   ${pct}`);
+    }
+  }
+
+  return lines.join("\n");
+}
+
+export async function getTodaySummary(cliPath: string): Promise<string> {
+  try {
+    const result = await execFile(cliPath, ["--today", "--output", "raw-json"], { timeout: 8_000 });
+    const parsed = JSON.parse(result.stdout.trim()) as { data?: WakaTodayData };
+    if (parsed && parsed.data) {
+      return formatTodaySummary(parsed.data);
+    }
+  } catch (err) {
+    logException("DEBUG", err);
+  }
+
+  const simple = await getTodayTime(cliPath);
+  return `Today's WakaTime coding: ${simple}`;
+}
+
 /**
  * Ensures wakatime-cli is available, installing or updating when necessary.
  */

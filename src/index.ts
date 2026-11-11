@@ -3,7 +3,7 @@
  */
 
 import * as fs from "node:fs";
-import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion, getTodayTime } from "./cli.js";
+import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion, getTodaySummary, getTodayTime } from "./cli.js";
 import { getConfigFile, getHomeDirectory, getLogFile, isApiKeyConfigured } from "./config.js";
 import { log, logException } from "./logger.js";
 import { extractFilePath, isFileEditTool, sendFileHeartbeat, triggerSync } from "./sync.js";
@@ -129,8 +129,8 @@ export default function wakaExtension(pi: ExtensionAPI): void {
               notify(ctx, "wakatime-cli is not installed yet; run /wakatime install");
               return;
             }
-            const todayTime = await getTodayTime(installed);
-            notify(ctx, `Today's WakaTime coding: ${todayTime}`);
+            const summary = await getTodaySummary(installed);
+            notify(ctx, summary);
             return;
           }
 

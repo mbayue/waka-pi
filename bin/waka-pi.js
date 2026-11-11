@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion, getTodayTime } from "../dist/cli.js";
+import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion, getTodaySummary, getTodayTime } from "../dist/cli.js";
 import { getConfigFile, getHomeDirectory, getLogFile, isApiKeyConfigured } from "../dist/config.js";
 import { logException } from "../dist/logger.js";
 import { triggerSync } from "../dist/sync.js";
@@ -51,8 +51,8 @@ Usage:
         process.exitCode = 1;
         return;
       }
-      const today = await getTodayTime(installed);
-      console.log(`Today's coding: ${today}`);
+      const summary = await getTodaySummary(installed);
+      console.log(summary);
       return;
     }
 

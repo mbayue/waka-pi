@@ -1,6 +1,6 @@
 {
   "name": "waka-pi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "WakaTime plugin for Pi and Oh-My-Pi coding agents",
   "type": "module",
   "main": "./dist/index.js",
@@ -50,19 +50,7 @@
     "prepare": "tsc",
     "watch": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "node --test test/**/*.test.js || tsx test/**/*.test.ts"
-  },
-  "peerDependencies": {
-    "@earendil-works/pi-coding-agent": "*",
-    "@oh-my-pi/pi-coding-agent": "*"
-  },
-  "peerDependenciesMeta": {
-    "@earendil-works/pi-coding-agent": {
-      "optional": true
-    },
-    "@oh-my-pi/pi-coding-agent": {
-      "optional": true
-    }
+    "test": "bun test || npx tsx --test test/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

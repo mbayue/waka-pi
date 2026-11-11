@@ -8,14 +8,6 @@
         "@types/node": "^22.10.0",
         "typescript": "^5.7.0",
       },
-      "peerDependencies": {
-        "@earendil-works/pi-coding-agent": "*",
-        "@oh-my-pi/pi-coding-agent": "*",
-      },
-      "optionalPeers": [
-        "@earendil-works/pi-coding-agent",
-        "@oh-my-pi/pi-coding-agent",
-      ],
     },
   },
   "packages": {
