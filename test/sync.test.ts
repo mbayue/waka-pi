@@ -30,6 +30,6 @@ test("extractFilePath handles multiple argument shapes", () => {
 });
 
 test("getUserAgent formats editor name and plugin version", () => {
-  assert.match(getUserAgent("omp"), /^oh-my-pi\/[^\s]+ waka-pi\/1\.\d+\.\d+/);
+  assert.match(getUserAgent("omp"), /^omp\/[^\s]+ waka-pi\/1\.\d+\.\d+/);
   assert.match(getUserAgent("pi"), /^pi\/[^\s]+ waka-pi\/1\.\d+\.\d+/);
 });

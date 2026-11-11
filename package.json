@@ -1,6 +1,6 @@
 {
   "name": "waka-pi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WakaTime plugin for Pi and Oh-My-Pi coding agents",
   "type": "module",
   "main": "./dist/index.js",

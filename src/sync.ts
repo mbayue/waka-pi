@@ -94,13 +94,14 @@ export function getUserAgent(agentName = "pi"): string {
     return configuredAgent.trim();
   }
 
-  // 3. Resolve canonical editor name ("oh-my-pi" or "pi")
+  // 3. Resolve canonical editor name ("omp" or "pi")
+  // Using "omp" unifies telemetry with wakatime-cli's native OMP parser
   const customEditor = getSetting("waka-pi", "editor");
   const isOmp =
     agentName.toLowerCase().includes("omp") ||
     agentName.toLowerCase().includes("oh-my-pi");
 
-  const editor = customEditor?.trim() || (isOmp ? "oh-my-pi" : "pi");
+  const editor = customEditor?.trim() || (isOmp ? "omp" : "pi");
   const version = getHostVersion(editor);
 
   return `${editor}/${version} waka-pi/${VERSION}`;
