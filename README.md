@@ -18,15 +18,17 @@ Track AI-assisted coding activity, file modifications, sessions, and token metri
 
 ### In Oh-My-Pi (`omp`)
 
-Install directly via the `omp` CLI:
+Install via the Oh-My-Pi Marketplace or directly from npm:
 
 ```bash
-# From npm
+# Option A: Via Oh-My-Pi Marketplace
+omp plugin marketplace add mbayue/waka-pi
 omp plugin install waka-pi
-# or shorthand:
+
+# Option B: Directly from npm
 omp install waka-pi
 
-# Directly from GitHub repository
+# Option C: Directly from GitHub repository
 omp plugin install github:mbayue/waka-pi
 
 # Or link a local working directory for development
@@ -166,3 +168,8 @@ bun test
 ## License
 
 MIT
+
+---
+
+> [!NOTE]
+> `waka-pi` is an independent community open-source project and is not affiliated with, endorsed by, or sponsored by WakaTime LLC. WakaTime is a registered trademark of WakaTime LLC.
