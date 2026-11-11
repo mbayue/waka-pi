@@ -3,7 +3,7 @@
  */
 
 import * as fs from "node:fs";
-import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion } from "./cli.js";
+import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion, getTodayTime } from "./cli.js";
 import { getConfigFile, getHomeDirectory, getLogFile, isApiKeyConfigured } from "./config.js";
 import { log, logException } from "./logger.js";
 import { extractFilePath, isFileEditTool, sendFileHeartbeat, triggerSync } from "./sync.js";
@@ -32,10 +32,12 @@ async function handleStatusCommand(ctx: ExtensionContext, agentName: string): Pr
   const installed = findInstalledCli();
   const cliPath = installed ?? getCliLocation();
   let cliVersion = "not installed";
+  let todayTime = "unavailable";
 
   if (installed) {
     try {
       cliVersion = (await getCurrentCliVersion(cliPath)) || "unknown";
+      todayTime = await getTodayTime(cliPath);
     } catch {
       cliVersion = "unknown";
     }
@@ -46,6 +48,7 @@ async function handleStatusCommand(ctx: ExtensionContext, agentName: string): Pr
     ctx,
     [
       `waka-pi/${VERSION} · running on ${agentName}`,
+      `today's coding: ${todayTime}`,
       `wakatime-cli: ${cliVersion} (${cliPath})`,
       `api_key: ${isApiKeyConfigured() ? "configured" : `missing — add it to ${getConfigFile()}`}`,
       `wakatime home: ${getHomeDirectory()}`,
@@ -117,6 +120,17 @@ export default function wakaExtension(pi: ExtensionAPI): void {
             const cliPath = await ensureWakatimeCli({ checkLatest: true, forceCheck: true });
             const version = await getCurrentCliVersion(cliPath).catch(() => "");
             notify(ctx, `wakatime-cli ${version || "installed"} at ${cliPath}`);
+            return;
+          }
+
+          case "today": {
+            const installed = findInstalledCli();
+            if (!installed) {
+              notify(ctx, "wakatime-cli is not installed yet; run /wakatime install");
+              return;
+            }
+            const todayTime = await getTodayTime(installed);
+            notify(ctx, `Today's WakaTime coding: ${todayTime}`);
             return;
           }
 

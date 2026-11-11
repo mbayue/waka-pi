@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion } from "../dist/cli.js";
+import { ensureWakatimeCli, findInstalledCli, getCliLocation, getCurrentCliVersion, getTodayTime } from "../dist/cli.js";
 import { getConfigFile, getHomeDirectory, getLogFile, isApiKeyConfigured } from "../dist/config.js";
 import { logException } from "../dist/logger.js";
 import { triggerSync } from "../dist/sync.js";
@@ -15,6 +15,7 @@ async function main() {
       console.log(`
 Usage:
   waka-pi --status              Check installation and API key status
+  waka-pi --today               Show today's tracked coding time
   waka-pi --sync [dir]          Trigger AI activity sync for project directory
   waka-pi --install             Download or update wakatime-cli binary
   waka-pi --version             Show waka-pi plugin version
@@ -43,15 +44,30 @@ Usage:
       return;
     }
 
+    if (flag === "--today") {
+      const installed = findInstalledCli();
+      if (!installed) {
+        console.error("wakatime-cli is not installed. Run waka-pi --install first.");
+        process.exitCode = 1;
+        return;
+      }
+      const today = await getTodayTime(installed);
+      console.log(`Today's coding: ${today}`);
+      return;
+    }
+
     if (flag === "--status") {
       const installed = findInstalledCli();
       const cliPath = installed ?? getCliLocation();
       let cliVer = "not installed";
+      let todayTime = "unavailable";
       if (installed) {
         cliVer = (await getCurrentCliVersion(cliPath).catch(() => "")) || "unknown";
+        todayTime = await getTodayTime(cliPath);
       }
 
       console.log(`waka-pi:       v${VERSION}`);
+      console.log(`today:         ${todayTime}`);
       console.log(`wakatime-cli:  ${cliVer} (${cliPath})`);
       console.log(`api_key:       ${isApiKeyConfigured() ? "configured" : `missing — configure in ${getConfigFile()}`}`);
       console.log(`wakatime home: ${getHomeDirectory()}`);

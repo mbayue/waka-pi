@@ -113,6 +113,15 @@ export async function getCurrentCliVersion(cliPath: string): Promise<string> {
   return `${result.stdout}${result.stderr}`.trim();
 }
 
+export async function getTodayTime(cliPath: string): Promise<string> {
+  try {
+    const result = await execFile(cliPath, ["--today"], { timeout: 5_000 });
+    return result.stdout.trim() || "0 secs";
+  } catch {
+    return "unavailable";
+  }
+}
+
 /**
  * Ensures wakatime-cli is available, installing or updating when necessary.
  */
