@@ -108,7 +108,8 @@ Like the official [Claude Code](https://github.com/wakatime/claude-code-wakatime
 
 Use the `/wakatime` slash command in your agent TUI:
 
-- `/wakatime status` — Displays runtime engine (Pi vs OMP), CLI version, configured paths, and API key status.
+- `/wakatime status` — Displays runtime engine (Pi vs OMP), CLI version, configured paths, API key status, and today's tracked coding time.
+- `/wakatime today` — Displays today's total tracked coding time directly in the chat.
 - `/wakatime sync` — Manually triggers an immediate background activity sync.
 - `/wakatime update` (or `/wakatime install`) — Downloads or updates `wakatime-cli`.
 - `/wakatime log` — Views the last 20 lines of `~/.wakatime/waka-pi.log`.
@@ -118,8 +119,11 @@ Use the `/wakatime` slash command in your agent TUI:
 Run diagnostic or maintenance tasks directly from your terminal using `npx`:
 
 ```bash
-# Check status and configuration
+# Check status, configuration, and today's tracked coding time
 npx waka-pi --status
+
+# View today's tracked coding time directly
+npx waka-pi --today
 
 # Trigger an immediate sync for a specific workspace
 npx waka-pi --sync /path/to/project
