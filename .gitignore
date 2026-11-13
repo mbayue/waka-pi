@@ -5,3 +5,5 @@ dist/
 Thumbs.db
 
 SOCIAL_PROMOTION.md
+.worktrees
+scripts/orca-vm/keys/

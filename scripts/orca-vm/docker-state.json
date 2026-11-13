@@ -1,0 +1,9 @@
+{
+  "baseImage": "waka-pi-orca-ssh:base",
+  "authImage": "",
+  "username": "orca",
+  "projectRoot": "/home/orca/waka-pi",
+  "repoUrl": "https://github.com/mbayue/waka-pi.git",
+  "repoRef": "main",
+  "label": "waka-pi-docker"
+}

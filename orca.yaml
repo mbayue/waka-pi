@@ -1,0 +1,24 @@
+# Per-workspace environment for waka-pi.
+# The composer reads this file from the primary checkout. A copy that exists only
+# on a branch does not show up as a Run on option until it is merged.
+scripts:
+  setup: |
+    bun install
+    bun run build
+
+environmentRecipes:
+  - id: docker-ssh
+    name: Docker SSH
+    description: >-
+      Disposable local Linux container reached over SSH. Orca dials 127.0.0.1.
+      The image installs git, bun, gh, and Codex. Codex sign-in is interactive
+      and is not baked into the base image.
+    create: .\scripts\orca-vm\docker-create.cmd
+    suspend: .\scripts\orca-vm\docker-suspend.cmd
+    resume: .\scripts\orca-vm\docker-resume.cmd
+    destroy: .\scripts\orca-vm\docker-destroy.cmd
+    timeoutSeconds:
+      create: 1800
+      suspend: 120
+      resume: 180
+      destroy: 120
